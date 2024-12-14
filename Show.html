@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Show</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Custom Slide Page</title>
+  <style>
+    /* 全局基础样式 */
+    body {
+      background-color: #000000;
+      font-family: Impact, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 页面顶端按钮与输入框容器样式 */
+ .top-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: transparent;
+      color: #FFFFFF;
+      border: 2px solid #FFFFFF;
+      cursor: pointer;
+      font-size: 20px;
+      font-family: Impact, sans-serif;
+      border-radius: 10px;
+      width: 965px;
+      height: 200px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: none;
+      margin: 10px 0;
+    }
+
+    input {
+      background-color: transparent;
+      color: #FFFFFF;
+      border: 2px solid #FFFFFF;
+      font-size: 30px;
+      font-family: Impact, sans-serif;
+      border-radius: 5px;
+      width: 950px;
+      height: 200px;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    /* 按钮功能介绍文本样式 */
+ .button-description {
+      color: #FFFFFF;
+      font-size: 14px;
+      text-align: right;
+      width: 100px;
+      margin-right: 10px;
+    }
+
+    /* 幻灯片上方内容区域样式 */
+ .above-slide-content {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    /* 幻灯片上方图片样式 */
+ .above-slide-img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border: 1px solid #FFFFFF;
+      border-radius: 50%;
+      margin-left: 10px;
+    }
+
+    /* 幻灯片上方文本样式 */
+ .above-slide-text {
+      color: #FFFFFF;
+      font-size: 55px;
+      font-family: Snell Roundhand, sans-serif;
+      text-align: left;
+      margin-left: 20px;
+    }
+
+    /* 新增文本样式调整（可根据实际需求修改） */
+    #new-above-slide-text-display {
+      color: #FFFFFF;
+      font-size: 30px;
+      font-family: Impact, sans-serif;
+      text-align: left;
+      margin-top: 10px;
+      margin-left: 20px;
+    }
+
+    /* 幻灯片容器样式 */
+ .slide-container {
+      width: 950px;
+      height: 550px;
+      border-radius: 5%;
+      border: 1px solid #FFFFFF;
+      overflow: hidden;
+      margin: 20px auto;
+    }
+
+ .slide {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    /* 幻灯片下方右侧文本容器样式 */
+ .below-slide-text {
+      color: #FFFFFF;
+      font-size: 22px;
+      font-family: Impact, sans-serif;
+      text-align: right;
+      margin-top: 0px;
+      margin-right: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 页面顶端按钮与输入框区域 -->
+  <div class="top-controls">
+    <div class="button-container">
+      <span class="button-description">Set Top Text</span>
+      <button id="btn-set-top-text">Top Text</button>
+    </div>
+    <div class="button-container">
+      <span class="button-description">Set Lowest Text</span>
+      <button id="btn-set-lowest-text">Lowest Text</button>
+    </div>
+    <div class="button-container">
+      <span class="button-description">Modify Medium Text</span>
+      <button id="btn-modify-new-text">Medium Text</button>
+    </div>
+
+    <div class="button-container">
+      <span class="button-description">Set Image</span>
+      <button id="btn-set-img">Image</button>
+      <span class="button-description">Set Slide</span>
+      <button id="btn-add-slide-img">Slide</button>
+      <span class="button-description">Set Background Image</span>
+      <button id="btn-set-bg-img">Set Background</button>
+    </div>
+
+    <div class="button-container">
+      <span class="button-description">Set lowest text to time</span>
+      <button id="btn-set-time">Set lowest text to time</button>
+    </div>
+  </div>
+
+  <!-- 幻灯片上方的图片与文本布局 -->
+  <div class="above-slide-content">
+    <input type="file" id="img-input" style="display: none;">
+    <img id="above-slide-img-preview" class="above-slide-img" alt="待设置图片">
+    <p id="above-slide-text-display" class="above-slide-text">这里是图片右侧对应的文本内容。</p>
+  </div>
+  <!-- 新增文本，位于图片容器下方，无额外容器包裹 -->
+  <p id="new-above-slide-text-display" class="above-slide-text">这是新增的文本内容。</p>
+
+  <!-- 幻灯片展示区域 -->
+  <div class="slide-container">
+  </div>
+
+  <!-- 幻灯片下方右侧文本 -->
+  <div class="below-slide-text">
+    <p id="below-slide-text-display">这是幻灯片下方右侧展示的文本内容。</p>
+  </div>
+
+  <script>
+    // 设置顶部文本按钮点击事件逻辑
+    document.getElementById('btn-set-top-text').addEventListener('click', function () {
+      const newText = prompt('请输入顶部文本');
+      if (newText!== null) {
+        document.getElementById('above-slide-text-display').innerText = newText;
+      }
+    });
+
+    // 设置底部文本按钮点击事件逻辑
+    document.getElementById('btn-set-lowest-text').addEventListener('click', function () {
+      const newText = prompt('请输入底部文本');
+      if (newText!== null) {
+        document.getElementById('below-slide-text-display').innerText = newText;
+      }
+    });
+
+    // 设置图片按钮点击事件逻辑
+    document.getElementById('btn-set-img').addEventListener('click', function () {
+      document.getElementById('img-input').click();
+    });
+
+    // 图片选择后的处理逻辑，用于预览图片
+    document.getElementById('img-input').addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = function () {
+          document.getElementById('above-slide-img-preview').src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // 添加幻灯片图片按钮点击事件逻辑
+    document.getElementById('btn-add-slide-img').addEventListener('click', function () {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.multiple = true;
+      input.addEventListener('change', function (e) {
+        const files = e.target.files;
+        const slideContainer = document.querySelector('.slide-container');
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          const reader = new FileReader();
+          reader.onloadend = function () {
+            const img = document.createElement('img');
+            img.src = reader.result;
+            img.className ='slide';
+            slideContainer.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+      input.click();
+    });
+
+    // 幻灯片切换逻辑
+    let slideIndex = 0;
+    function showSlides() {
+      const slides = document.getElementsByClassName('slide');
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = 'none';
+      }
+      slideIndex++;
+      if (slideIndex >= slides.length) {
+        slideIndex = 0;
+      }
+      slides[slideIndex].style.display = 'block';
+    }
+    setInterval(showSlides, 3000);
+
+    // 修改新增文本按钮点击事件逻辑
+    document.getElementById('btn-modify-new-text').addEventListener('click', function () {
+      const newText = prompt('请输入新文本');
+      if (newText!== null) {
+        document.getElementById('new-above-slide-text-display').innerText = newText;
+      }
+    });
+
+    // 设置时间按钮点击事件逻辑
+    document.getElementById('btn-set-time').addEventListener('click', function () {
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+      const day = currentDate.getDate().toString().padStart(2, '0');
+      const hours = currentDate.getHours().toString().padStart(2, '0');
+      const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+      const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+      const dateTimeString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      document.getElementById('below-slide-text-display').innerText = dateTimeString;
+    });
+
+    // 设置背景图片按钮点击事件逻辑
+    document.getElementById('btn-set-bg-img').addEventListener('click', function () {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onloadend = function () {
+            document.body.style.backgroundImage = `url('${reader.result}')`;
+            document.body.style.backgroundPositionY = '1740px';
+            document.body.style.backgroundRepeat = 'no-repeat';
+          };
+          reader.readAsDataURL(file);
+        } else {
+          document.body.style.backgroundImage = 'none';
+          document.body.style.backgroundColor = '#000000';
+        }
+      });
+      input.click();
+    });
+  </script>
+</body>
+
+</html>
+<!-- partial -->
+  
+</body>
+</html>
